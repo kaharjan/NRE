@@ -191,8 +191,8 @@ void init() {
 
 	for (map<string, vector<int> >::iterator it = bags_train.begin(); it != bags_train.end(); it++)
 	{
-		fprintf(logg, "first value %s\t", it->first);
-		fprintf(logg, "second value %s\t", it->second);
+		fprintf(logg, "first value %s\t", it->first.c_str());
+		//fprintf(logg, "second value %s\t", it->second.siz());
 		fprintf(logg, "second value size %s\t\n", it->second.size());
 	
 			//b_train contains e1,e2 relation
