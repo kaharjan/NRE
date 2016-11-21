@@ -166,7 +166,8 @@ void test() {
 	//	pthread_create(&pt[a], NULL, testMode,  (void *)a);
 	//for (int a = 0; a < num_threads; a++)
 	//	pthread_join(pt[a], NULL);
-	testMode(void);
+	int a=0;
+	testMode((void*)a);
 	cout<<"begin sort"<<' '<<aa.size()<<endl;
 	sort(aa.begin(),aa.end(),cmp);
 	double correct=0;
