@@ -268,7 +268,10 @@ void train() {
 	matrixW1PositionE2 = (float *)calloc(dimensionC * dimensionWPE * window, sizeof(float));
 	matrixB1 = (float*)calloc(dimensionC, sizeof(float));
 
-    //initiazie all matrix 
+	fprintf(logg,"\n-----------initialize all matrix------\n");
+
+    //initiazie all matrix
+    fprintf(logg,"matrixB1=["); 
 	for (int i = 0; i < dimensionC; i++) {
 		int last = i * window * dimension;
 		for (int j = dimension * window - 1; j >=0; j--)
@@ -283,7 +286,10 @@ void train() {
 			tmp2 += matrixW1PositionE2[last + j]  * matrixW1PositionE2[last + j] ;
 		}
 		matrixB1[i] = getRandU(-con1, con1);
+		fprintf(logg,"%2f",matrixB1[i]);
+
 	}
+	fprintf(logg,"]"); 
 
 	for (int i = 0; i < relationTotal; i++) 
 	{
