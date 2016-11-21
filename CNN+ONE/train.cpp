@@ -343,7 +343,8 @@ void train() {
 			//for (int a = 0; a < num_threads; a++)
 			//pthread_join(pt[a], NULL);
 			//free(pt);
-			trainMode(void);
+			int a = 0;
+			trainMode((void*)a);
 			if (k%(npoch/5)==0)
 			{
 				cout<<"npoch:\t"<<k<<'/'<<npoch<<endl;
