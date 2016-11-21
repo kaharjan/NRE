@@ -79,6 +79,7 @@ void init() {
 	wordList[0] = "UNK";
 	for (int b = 1; b <= wordTotal; b++) {
 		string name = "";
+		//write word in vector.bin to vector1.txt,like <s>, bella, one ...
 		while (1) {
 			char ch = fgetc(f);
 			if (feof(f) || ch == ' ') break;
@@ -88,19 +89,24 @@ void init() {
 		int last = b * dimension;
 		float smp = 0;
 		for (int a = 0; a < dimension; a++) {
+			//read by calling fgetc sizeof(float)*1 time from f, and put to wordVect
 			fread(&wordVec[a + last], sizeof(float), 1, f);
+
 			smp += wordVec[a + last]*wordVec[a + last];
 		}
+		// smp=sqrt(n1*n1+n2*n2+...n50*n50)
 		smp = sqrt(smp);
+		//n1=n1/smp
 		for (int a = 0; a< dimension; a++)
 		{
 			wordVec[a+last] = wordVec[a+last] / smp;
 			fprintf(fout, "\t%f", wordVec[a+last]);
 		}
 		fprintf(fout,"\n");
+		//inverted word table 
 		wordMapping[name] = b;
 		wordList[b] = name;
-	}
+	}//for 
 	fclose(fout);
 	wordTotal+=1;
 	fclose(f);
@@ -128,27 +134,35 @@ void init() {
 		int tail = wordMapping[(string)(buffer)];
 		string tail_s = (string)(buffer);
 		fscanf(f,"%s",buffer);
+		//bags_train["m.0ycvs\tm.02pxj3t\tcontatins"]=<0>
 		bags_train[e1+"\t"+e2+"\t"+(string)(buffer)].push_back(headList.size());
+		//relation id
 		int num = relationMapping[(string)(buffer)];
 		int len = 0, lefnum = 0, rignum = 0;
 		std::vector<int> tmpp;
 		while (fscanf(f,"%s", buffer)==1) {
 			std::string con = buffer;
 			if (con=="###END###") break;
+			//gg is word id
 			int gg = wordMapping[con];
 			if (con == head_s) lefnum = len;
 			if (con == tail_s) rignum = len;
 			len++;
 			tmpp.push_back(gg);
 		}
+		//headList contains head entit's wordvec id
 		headList.push_back(head);
+		//tailList contains tail entit's wordvec id
 		tailList.push_back(tail);
+		//tailList contains relation id
 		relationList.push_back(num);
+		//trainLenght contains number of words in one sentence
 		trainLength.push_back(len);
 		int *con=(int *)calloc(len,sizeof(int));
 		int *conl=(int *)calloc(len,sizeof(int));
 		int *conr=(int *)calloc(len,sizeof(int));
 		for (int i = 0; i < len; i++) {
+			//con is wordvec id in the sentence
 			con[i] = tmpp[i];
 			conl[i] = lefnum - i;
 			conr[i] = rignum - i;
@@ -161,8 +175,11 @@ void init() {
 			if (conl[i] < PositionMinE1) PositionMinE1 = conl[i];
 			if (conr[i] < PositionMinE2) PositionMinE2 = conr[i];
 		}
+		//trainLists contains word vect id in every sentence
 		trainLists.push_back(con);
+		//trainPositionE1 contains relitve positon of word corresponding to e1
 		trainPositionE1.push_back(conl);
+		//trainPositionE1 contains relitve positon of word corresponding to e2
 		trainPositionE2.push_back(conr);
 	}
 	fclose(f);
@@ -264,6 +281,7 @@ float sigmod(float con) {
 
 int getRand(int l,int r) {
 	int len = r - l;
+	//from 0 to RAND_MAX   x*x%len
 	int res = rand()*rand() % len;
 	if (res < 0)
 		res+=len;
@@ -272,6 +290,7 @@ int getRand(int l,int r) {
 
 float getRandU(float l, float r) {
 	float len = r - l;
+	//RAND_MAX=32767
 	float res = (float)(rand()) / RAND_MAX;
 	return res * len + l;
 }
