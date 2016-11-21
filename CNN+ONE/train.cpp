@@ -43,6 +43,9 @@ void time_end()
 //					matrixB1Dao?
 //		matrixRelationDao?
 //matrixW1PositionE1Dao
+//calling example
+//double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
+	    //positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
 double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2, int len, int e1, int e2, int r1, float &res, float &res1, float *matrixW1Dao, float *matrixB1Dao, float *r, float *matrixRelationDao,
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
@@ -59,6 +62,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 				if (j>=0&&j<len){
 					int last1 = sentence[j] * dimension;
 				 	for (int k = 0; k < dimension; k++) {
+				 		//res corresponding to pi=W*q
 				 		res += matrixW1Dao[last + tot] * wordVecDao[last1+k];
 				 		tot++;
 				 	}
@@ -81,7 +85,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 				}
 			}
 			//mx is corrponding to xi=max(pi)??
-			//MatrixB1Dao corresponding to M , o=M*s+d???
+			//MatrixB1Dao corresponding to b bias vector
 			r[i] = mx + matrixB1Dao[i];
 		}
 //r[i] is output of cnn befor tanH
@@ -99,12 +103,15 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 		for (int j = 0; j < relationTotal; j++) {
 			float s = 0;
 			for (int i = 0; i < dimensionC; i++) {
+				//matrixRelationDao is corresponding to M 
 				s += dropout[i] * r[i] * matrixRelationDao[j * dimensionC + i];
 			}
+			//matrixRelationPrDao is corresponding to d
 			s += matrixRelationPrDao[j];
 			f_r.push_back(exp(s));
 			sum+=f_r[j];
 		}
+		//r1 is corresponding to RelationID
 		double rt = log(f_r[r1]) - log(sum);
 		if (flag)
 		{
@@ -165,7 +172,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 
 				matrixB1[i] += -Belt * matrixB1Dao[i] *alpha * 2;
 			}
-		}
+		}//if (flag)
 		//rt is J(theta)?
 		return rt;
 }
@@ -183,7 +190,7 @@ void* trainMode(void *id ) {
 		{
 				float res = 0;
 				float res1 = 0;
-				//batch size =16 but 160 in the paper
+				//batch size =16 , 10 thread 
 				for (int k1 = batch; k1 > 0; k1--)
 				{
 					int j = getRand(0, c_train.size());
@@ -191,6 +198,7 @@ void* trainMode(void *id ) {
 					double tmp1 = -1e8;
 					int tmp2 = -1;
 					vector<double> s_tmp;
+					//b_train contains e1,e2 relation
 					for (int k=0; k<bags_train[b_train[j]].size(); k++)
 					{
 						int i = bags_train[b_train[j]][k];
@@ -222,10 +230,12 @@ void train() {
 	for (map<string,vector<int> >:: iterator it = bags_train.begin(); it!=bags_train.end(); it++)
 	{
 		for (int i=0; i<max(1,1); i++)
+			//b_train contains e1,e2 relation
 			c_train.push_back(b_train.size());
 		b_train.push_back(it->first);
 		tmp+=it->second.size();
 	}
+	//c_train have bags_train size.
 	cout<<c_train.size()<<endl;
 //sentence embeding dimensionC=230
 	float con = sqrt(6.0/(dimensionC+relationTotal));
@@ -243,6 +253,7 @@ void train() {
 	matrixW1PositionE2 = (float *)calloc(dimensionC * dimensionWPE * window, sizeof(float));
 	matrixB1 = (float*)calloc(dimensionC, sizeof(float));
 
+    //initiazie all matrix 
 	for (int i = 0; i < dimensionC; i++) {
 		int last = i * window * dimension;
 		for (int j = dimension * window - 1; j >=0; j--)
@@ -297,6 +308,7 @@ void train() {
 	for (turn = 0; turn < trainTimes; turn ++) {
 		len = c_train.size();
 		npoch  =  len / (batch * num_threads);
+		//alpha=0.02 rate=1 batch=16
 		alpha1 = alpha*rate/batch;
 
 		score = 0;
