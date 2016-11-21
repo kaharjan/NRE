@@ -194,11 +194,7 @@ void init() {
 		fprintf(logg, "first value %s\t", it->first.c_str());
 		//fprintf(logg, "second value %s\t", it->second.siz());
 		fprintf(logg, "second value size %s\t\n", it->second.size());
-	
-			//b_train contains e1,e2 relation
-			c_train.push_back(b_train.size());
-		b_train.push_back(it->first);
-		tmp += it->second.size();
+
 	}
 
 
