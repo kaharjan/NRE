@@ -138,7 +138,7 @@ void init() {
 		string tail_s = (string)(buffer);
 		fscanf(f,"%s",buffer);
 		//bags_train["m.0ycvs\tm.02pxj3t\tcontatins"]=<0>
-		fprintf(logg, "headList.size()= %d", headList.size());
+		fprintf(logg, "headList.size()= %d\n", headList.size());
 		string ktmp = e1 + "\t" + e2 + "\t" + (string)(buffer);
 		bags_train[e1+"\t"+e2+"\t"+(string)(buffer)].push_back(headList.size());
 		//fprintf(logg, "bags_train[e1+e2+(string)(buffer)]= %d", bags_train[ktmp]);
@@ -155,7 +155,7 @@ void init() {
 			if (con == tail_s) rignum = len;
 			len++;
 			tmpp.push_back(gg);
-		}
+		}//while
 		//headList contains head entit's wordvec id
 		headList.push_back(head);
 		//tailList contains tail entit's wordvec id
@@ -187,7 +187,21 @@ void init() {
 		trainPositionE1.push_back(conl);
 		//trainPositionE1 contains relitve positon of word corresponding to e2
 		trainPositionE2.push_back(conr);
+	}//while(f
+
+	for (map<string, vector<int> >::iterator it = bags_train.begin(); it != bags_train.end(); it++)
+	{
+		fprintf(logg, "first value %s\t", it->first);
+		fprintf(logg, "second value %s\t", it->second);
+		fprintf(logg, "second value size %s\t\n", it->second.size());
+	
+			//b_train contains e1,e2 relation
+			c_train.push_back(b_train.size());
+		b_train.push_back(it->first);
+		tmp += it->second.size();
 	}
+
+
 	fclose(f);
 
 	f = fopen("../data/RE/test2.txt", "r");	
