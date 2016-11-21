@@ -161,13 +161,13 @@ void test() {
 			now+=1;
 		}
 	cout<<"tot:\t"<<tot<<endl;
-	//pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
-	//for (int a = 0; a < num_threads; a++)
-	//	pthread_create(&pt[a], NULL, testMode,  (void *)a);
-	//for (int a = 0; a < num_threads; a++)
-	//	pthread_join(pt[a], NULL);
-	int a=0;
-	testMode((void*)a);
+	pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
+	for (int a = 0; a < num_threads; a++)
+		pthread_create(&pt[a], NULL, testMode,  (void *)a);
+	for (int a = 0; a < num_threads; a++)
+		pthread_join(pt[a], NULL);
+	//int a=0;
+//	testMode((void*)a);
 	cout<<"begin sort"<<' '<<aa.size()<<endl;
 	sort(aa.begin(),aa.end(),cmp);
 	double correct=0;
