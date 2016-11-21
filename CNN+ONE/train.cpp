@@ -49,7 +49,8 @@ void time_end()
 double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2, int len, int e1, int e2, int r1, float &res, float &res1, float *matrixW1Dao, float *matrixB1Dao, float *r, float *matrixRelationDao,
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
-			
+	    fprintf(logg,"train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%d,tailList[i]=%d,relationList[i]=%d,",flag,*sentence,*trainPositionE1, trainPositionE2,len,e1,e2,r1)
+	    fprintf(logg,"res=%f,res1=%f ...)",res,res1)
 		for (int i = 0; i < dimensionC; i++) {
 			int last = i * dimension * window;
 			int lastt = i * dimensionWPE * window;
@@ -227,7 +228,7 @@ void train() {
 	int tmp = 0;
 	b_train.clear();
 	c_train.clear();
-	fprintf(logg, "------------------------train()------------------\n");
+	fprintf(logg, "\n------------------------train()------------------\n");
 	for (map<string,vector<int> >:: iterator it = bags_train.begin(); it!=bags_train.end(); it++)
 	{
 		for (int i=0; i<max(1,1); i++)
@@ -236,11 +237,12 @@ void train() {
 		b_train.push_back(it->first);
 		tmp+=it->second.size();
 
-		   //kahar 
-		fprintf(logg, "first value %s\t", it->first.c_str());		
-		fprintf(logg, "second value size %d\t\n", it->second.size());
-		for (int i = 0; i < it->second.size();i++ )
-			fprintf(logg, "%d\t",it->second[i] );
+		//kahar 
+		fprintf(logg, "bags_train[ %s]\t", it->first.c_str());
+		fprintf(logg, " size =%d\t", it->second.size());
+		for (int i = 0; i < it->second.size(); i++)
+			fprintf(logg, "%d,", it->second[i]);
+		fprintf(logg, "\n");
 	}
 	//c_train have bags_train size.
 	cout<<c_train.size()<<endl;
