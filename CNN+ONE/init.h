@@ -68,7 +68,7 @@ map<string,vector<int> > bags_train, bags_test;
 void init() {
 	FILE *f = fopen("../data/vec.bin", "rb");
 	FILE *fout = fopen("../data/vector1.txt", "w");
-	logg=fopen("./CNN+one.log","w")
+	logg = fopen("./CNN+one.log", "w");
 	fscanf(f, "%d", &wordTotal);
 	fscanf(f, "%d", &dimension);
 	cout<<"wordTotal=\t"<<wordTotal<<endl;
@@ -138,9 +138,9 @@ void init() {
 		string tail_s = (string)(buffer);
 		fscanf(f,"%s",buffer);
 		//bags_train["m.0ycvs\tm.02pxj3t\tcontatins"]=<0>
-		fprint(logg,"headList.size()= %d", headList.size())
+		fprint(logg, "headList.size()= %d", headList.size());
 		bags_train[e1+"\t"+e2+"\t"+(string)(buffer)].push_back(headList.size());
-		fprint(logg, "bags_train[e1+"\t"+e2+"\t"+(string)(buffer)]= %d", bags_train[e1 + "\t" + e2 + "\t" + (string)(buffer)])
+		fprint(logg, "bags_train[e1+"\t"+e2+"\t"+(string)(buffer)]= %d", bags_train[e1 + "\t" + e2 + "\t" + (string)(buffer)]);
 		//relation id
 		int num = relationMapping[(string)(buffer)];
 		int len = 0, lefnum = 0, rignum = 0;
