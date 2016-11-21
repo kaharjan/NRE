@@ -144,7 +144,7 @@ void init() {
 		//fprintf(logg, "bags_train[e1+e2+(string)(buffer)]= %d", bags_train[ktmp]);
 
 		//kahar 
-		fprintf(logg, "bags_train[ %s],", ktmp);
+		fprintf(logg, "bags_train[ %s],", ktmp.c_str());
 		//fprintf(logg, ".size()= %d\t\n", bags_train[ktmp].size());
 		for (int i = 0; i < bags_train[ktmp].size(); i++)
 			fprintf(logg, "%d\t", bags_train[ktmp][i]);
