@@ -204,8 +204,10 @@ void* trainMode(void *id ) {
 					{
 						int i = bags_train[b_train[j]][k];
 						// assume tmp corresponding to Oi
+						pthread_mutex_lock (&mutex1);
 						double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
+						pthread_mutex_unlock (&mutex1);
 					//	score+=tmp;
 						if (tmp1<tmp)
 						{
@@ -217,8 +219,10 @@ void* trainMode(void *id ) {
 						else
 							s_tmp.push_back(exp(tmp)+s_tmp[k-1]);
 					}
+					pthread_mutex_lock (&mutex1);
 					score+= train(1,trainLists[tmp2], trainPositionE1[tmp2], trainPositionE2[tmp2], trainLength[tmp2], headList[tmp2], tailList[tmp2], relationList[tmp2], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
+					pthread_mutex_unlock (&mutex1);
 				}
 		}
 		free(r);
