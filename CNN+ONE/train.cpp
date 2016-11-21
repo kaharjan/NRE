@@ -49,10 +49,10 @@ void time_end()
 double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2, int len, int e1, int e2, int r1, float &res, float &res1, float *matrixW1Dao, float *matrixB1Dao, float *r, float *matrixRelationDao,
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
-		cout<<"sentence="<<sentence<<endl;
+		//cout<<"sentence="<<sentence<<endl;
 		//cout<<
 		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%d,tailList[i]=%d,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, e1, e2, r1);
-		fprintf(logg, "res=%f,res1=%f ...)", res, res1);
+		fprintf(logg, "res=%f,res1=%f ...)\n\n", res, res1);
 		for (int i = 0; i < dimensionC; i++) {
 			int last = i * dimension * window;
 			int lastt = i * dimensionWPE * window;
@@ -332,7 +332,7 @@ void train() {
 	for (turn = 0; turn < trainTimes; turn ++) {
 		len = c_train.size();
 		npoch  =  len / (batch * num_threads);
-		fprintf(logg,"npoch=%d",npoch);
+		fprintf(logg,"\nnpoch=%d\n",npoch);
 		//alpha=0.02 rate=1 batch=16
 		alpha1 = alpha*rate/batch;
 
