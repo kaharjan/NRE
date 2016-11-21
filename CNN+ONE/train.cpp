@@ -194,6 +194,7 @@ void* trainMode(void *id ) {
 				float res = 0;
 				float res1 = 0;
 				//batch size =16 , 10 thread 
+				fprintf(logg,"\n------TrainMode Begin-------\n")
 				for (int k1 = batch; k1 > 0; k1--)
 				{
 					int j = getRand(0, c_train.size());
@@ -202,10 +203,12 @@ void* trainMode(void *id ) {
 					int tmp2 = -1;
 					vector<double> s_tmp;
 					//b_train contains e1,e2 relation
+					fprintf(logg,"\n--------begin train(0,......)-----\n");
 					for (int k=0; k<bags_train[b_train[j]].size(); k++)
 					{
 						int i = bags_train[b_train[j]][k];
 						// assume tmp corresponding to Oi
+
 						pthread_mutex_lock (&mutex1);
 						double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
@@ -286,7 +289,7 @@ void train() {
 			tmp2 += matrixW1PositionE2[last + j]  * matrixW1PositionE2[last + j] ;
 		}
 		matrixB1[i] = getRandU(-con1, con1);
-		fprintf(logg,"%2f",matrixB1[i]);
+		fprintf(logg,"%.2f",matrixB1[i]);
 
 	}
 	fprintf(logg,"]"); 
@@ -349,6 +352,7 @@ void train() {
 			memcpy(matrixB1Dao, matrixB1, sizeof(float) * dimensionC);
 			memcpy(matrixRelationPrDao, matrixRelationPr, relationTotal * sizeof(float));				//add
 			memcpy(matrixRelationDao, matrixRelation, dimensionC*relationTotal * sizeof(float));
+			fprintf(logg,"\n-------Thread Begin -----------\n ");
 			pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
 			for (int a = 0; a < num_threads; a++)
 				pthread_create(&pt[a], NULL, trainMode,  (void *)a);
