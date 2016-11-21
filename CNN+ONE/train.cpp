@@ -237,7 +237,7 @@ void train() {
 		tmp+=it->second.size();
 
 		   //kahar 
-		fprintf(logg, "first value %s\t", it->first);
+		fprintf(logg, "first value %s\t", it->first.c_str());
 		
 			//fprintf(logg, "second value size %s\t\n", it->second.size());
 	}
