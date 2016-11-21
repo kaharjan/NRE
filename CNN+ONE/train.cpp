@@ -38,7 +38,11 @@ void time_end()
 
 
 
+//convolutinon matrix W is matrixW1Dao
 
+//					matrixB1Dao?
+//		matrixRelationDao?
+//matrixW1PositionE1Dao
 double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2, int len, int e1, int e2, int r1, float &res, float &res1, float *matrixW1Dao, float *matrixB1Dao, float *r, float *matrixRelationDao,
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
@@ -76,9 +80,11 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 					tip[i] = i1;
 				}
 			}
+			//mx is corrponding to xi=max(pi)??
+			//MatrixB1Dao corresponding to M , o=M*s+d???
 			r[i] = mx + matrixB1Dao[i];
 		}
-
+//r[i] is output of cnn befor tanH
 		for (int i = 0; i < dimensionC; i++) {
 			r[i] = CalcTanh(r[i]);
 		}
@@ -160,6 +166,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 				matrixB1[i] += -Belt * matrixB1Dao[i] *alpha * 2;
 			}
 		}
+		//rt is J(theta)?
 		return rt;
 }
 
@@ -169,12 +176,14 @@ vector<string> b_train;
 vector<int> c_train;
 double score_tmp = 0, score_max = 0;
 pthread_mutex_t mutex1;
+//kahar 
 void* trainMode(void *id ) {
 		unsigned long long next_random = (long long)id;
 		float *r = (float *)calloc(dimensionC, sizeof(float));
 		{
 				float res = 0;
 				float res1 = 0;
+				//batch size =16 but 160 in the paper
 				for (int k1 = batch; k1 > 0; k1--)
 				{
 					int j = getRand(0, c_train.size());
@@ -185,6 +194,7 @@ void* trainMode(void *id ) {
 					for (int k=0; k<bags_train[b_train[j]].size(); k++)
 					{
 						int i = bags_train[b_train[j]][k];
+						// assume tmp corresponding to Oi
 						double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
 					//	score+=tmp;
@@ -217,9 +227,10 @@ void train() {
 		tmp+=it->second.size();
 	}
 	cout<<c_train.size()<<endl;
-
+//sentence embeding dimensionC=230
 	float con = sqrt(6.0/(dimensionC+relationTotal));
 	float con1 = sqrt(6.0/((dimensionWPE+dimension)*window));
+	//matrixRelation \in \mathbb{R^{dc \time  nc}  230*52
 	matrixRelation = (float *)calloc(dimensionC * relationTotal, sizeof(float));
 	matrixRelationPr = (float *)calloc(relationTotal, sizeof(float));
 	matrixRelationPrDao = (float *)calloc(relationTotal, sizeof(float));
