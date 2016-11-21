@@ -141,7 +141,7 @@ void init() {
 		fprintf(logg, "headList.size()= %d", headList.size());
 		string ktmp = e1 + "\t" + e2 + "\t" + (string)(buffer);
 		bags_train[e1+"\t"+e2+"\t"+(string)(buffer)].push_back(headList.size());
-		fprintf(logg, "bags_train[e1+e2+(string)(buffer)]= %d", bags_train[ktmp]);
+		//fprintf(logg, "bags_train[e1+e2+(string)(buffer)]= %d", bags_train[ktmp]);
 		//relation id
 		int num = relationMapping[(string)(buffer)];
 		int len = 0, lefnum = 0, rignum = 0;
