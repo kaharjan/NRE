@@ -332,6 +332,7 @@ void train() {
 	for (turn = 0; turn < trainTimes; turn ++) {
 		len = c_train.size();
 		npoch  =  len / (batch * num_threads);
+		fprintf(logg,"npoch=%d",npoch);
 		//alpha=0.02 rate=1 batch=16
 		alpha1 = alpha*rate/batch;
 
@@ -340,6 +341,7 @@ void train() {
 		score_tmp = 0;
 		double score1 = score;
 		time_begin();
+		fprintf(logg,"\n-------Thread Begin -----------\n ");
 		for (int k = 1; k <= npoch; k++) {
 			score_max += batch * num_threads;
 			memcpy(positionVecDaoE1, positionVecE1, PositionTotalE1 * dimensionWPE* sizeof(float));
@@ -352,7 +354,7 @@ void train() {
 			memcpy(matrixB1Dao, matrixB1, sizeof(float) * dimensionC);
 			memcpy(matrixRelationPrDao, matrixRelationPr, relationTotal * sizeof(float));				//add
 			memcpy(matrixRelationDao, matrixRelation, dimensionC*relationTotal * sizeof(float));
-			fprintf(logg,"\n-------Thread Begin -----------\n ");
+			
 			pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
 			for (int a = 0; a < num_threads; a++)
 				pthread_create(&pt[a], NULL, trainMode,  (void *)a);

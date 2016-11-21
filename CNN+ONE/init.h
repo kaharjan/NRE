@@ -42,7 +42,7 @@ float *positionVecDaoE2;
 float *matrixW1Dao;
 float *matrixB1Dao;
 double mx = 0;
-int batch = 16;
+int batch = 2;//original value=16
 int npoch;
 int len;
 float rate = 1;
@@ -128,16 +128,17 @@ void init() {
 	
 	f = fopen("../data/RE/train2.txt", "r");
 	while (fscanf(f,"%s",buffer)==1)  {
+		//e1=m.0ccvx
 		string e1 = buffer;
-		fscanf(f,"%s",buffer);
+		fscanf(f,"%s",buffer);//buffer=m.05gf08
 		string e2 = buffer;
-		fscanf(f,"%s",buffer);
+		fscanf(f,"%s",buffer);//buffer=queens
 		string head_s = (string)(buffer);
-		int head = wordMapping[(string)(buffer)];
-		fscanf(f,"%s",buffer);
-		int tail = wordMapping[(string)(buffer)];
+		int head = wordMapping[(string)(buffer)];//queens 's word embbeding
+		fscanf(f,"%s",buffer);//buffer=belle_harbor
+		int tail = wordMapping[(string)(buffer)]; //belle_harbor 's word embbeding'
 		string tail_s = (string)(buffer);
-		fscanf(f,"%s",buffer);
+		fscanf(f,"%s",buffer); //buffer /location/location/contains
 		//bags_train["m.0ycvs\tm.02pxj3t\tcontatins"]=<0>
 		fprintf(logg, "\nheadList.size()= %d\n", headList.size());
 		string ktmp = e1 + "\t" + e2 + "\t" + (string)(buffer);
@@ -155,7 +156,7 @@ void init() {
 		int len = 0, lefnum = 0, rignum = 0;
 		std::vector<int> tmpp;
 		while (fscanf(f,"%s", buffer)==1) {
-			std::string con = buffer;
+			std::string con = buffer; //buffer=sen.
 			if (con=="###END###") break;
 			//gg is word id
 			int gg = wordMapping[con];
