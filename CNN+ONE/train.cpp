@@ -337,12 +337,13 @@ void train() {
 			memcpy(matrixB1Dao, matrixB1, sizeof(float) * dimensionC);
 			memcpy(matrixRelationPrDao, matrixRelationPr, relationTotal * sizeof(float));				//add
 			memcpy(matrixRelationDao, matrixRelation, dimensionC*relationTotal * sizeof(float));
-			pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
-			for (int a = 0; a < num_threads; a++)
-				pthread_create(&pt[a], NULL, trainMode,  (void *)a);
-			for (int a = 0; a < num_threads; a++)
-			pthread_join(pt[a], NULL);
-			free(pt);
+			//pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
+			//for (int a = 0; a < num_threads; a++)
+			//	pthread_create(&pt[a], NULL, trainMode,  (void *)a);
+			//for (int a = 0; a < num_threads; a++)
+			//pthread_join(pt[a], NULL);
+			//free(pt);
+			trainMode();
 			if (k%(npoch/5)==0)
 			{
 				cout<<"npoch:\t"<<k<<'/'<<npoch<<endl;
