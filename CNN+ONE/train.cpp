@@ -235,10 +235,11 @@ void train() {
 			c_train.push_back(b_train.size());
 		b_train.push_back(it->first);
 		tmp+=it->second.size();
-			fprintf(logg, "first value %s\t", it->first.c_str());
-		
-			fprintf(logg, "second value size %s\t\n", it->second.size());
 
+		   //kahar 
+		fprintf(logg, "first value %s\t", it->first);
+		
+			//fprintf(logg, "second value size %s\t\n", it->second.size());
 	}
 	//c_train have bags_train size.
 	cout<<c_train.size()<<endl;
