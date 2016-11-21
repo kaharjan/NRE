@@ -194,7 +194,7 @@ void* trainMode(void *id ) {
 				float res = 0;
 				float res1 = 0;
 				//batch size =16 , 10 thread 
-				fprintf(logg,"\n------TrainMode Begin-------\n")
+				fprintf(logg,"\n------TrainMode Begin-------\n");
 				for (int k1 = batch; k1 > 0; k1--)
 				{
 					int j = getRand(0, c_train.size());
