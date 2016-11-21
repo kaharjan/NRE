@@ -50,6 +50,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
 		cout<<"sentence="<<sentence<<endl;
+		//cout<<
 		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%d,tailList[i]=%d,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, e1, e2, r1);
 		fprintf(logg, "res=%f,res1=%f ...)", res, res1);
 		for (int i = 0; i < dimensionC; i++) {
