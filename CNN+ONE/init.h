@@ -138,7 +138,7 @@ void init() {
 		string tail_s = (string)(buffer);
 		fscanf(f,"%s",buffer);
 		//bags_train["m.0ycvs\tm.02pxj3t\tcontatins"]=<0>
-		fprint(logg, "headList.size()= %d", headList.size());
+		//fprint(logg, "headList.size()= %d", headList.size());
 		bags_train[e1+"\t"+e2+"\t"+(string)(buffer)].push_back(headList.size());
 		//fprint(logg, "bags_train[e1+e2+(string)(buffer)]= %d", bags_train[e1 + "\t" + e2 + "\t" + (string)(buffer)]);
 		//relation id
