@@ -227,6 +227,7 @@ void train() {
 	int tmp = 0;
 	b_train.clear();
 	c_train.clear();
+	fprintf(logg, "------------------------train()------------------");
 	for (map<string,vector<int> >:: iterator it = bags_train.begin(); it!=bags_train.end(); it++)
 	{
 		for (int i=0; i<max(1,1); i++)
@@ -234,9 +235,9 @@ void train() {
 			c_train.push_back(b_train.size());
 		b_train.push_back(it->first);
 		tmp+=it->second.size();
-		//	fprintf(logg, "first value %s\t", it->first.c_str());
+			fprintf(logg, "first value %s\t", it->first.c_str());
 		
-			//fprintf(logg, "second value size %s\t\n", it->second.size());
+			fprintf(logg, "second value size %s\t\n", it->second.size());
 
 	}
 	//c_train have bags_train size.
