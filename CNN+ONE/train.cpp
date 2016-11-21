@@ -237,9 +237,10 @@ void train() {
 		tmp+=it->second.size();
 
 		   //kahar 
-		fprintf(logg, "first value %s\t", it->first.c_str());
-		
+		fprintf(logg, "first value %s\t", it->first.c_str());		
 		fprintf(logg, "second value size %d\t\n", it->second.size());
+		for (int i = 0; i < it->second.size();i++ )
+			fprintf(logg, "Second value %d\t",it->second[i] );
 	}
 	//c_train have bags_train size.
 	cout<<c_train.size()<<endl;
