@@ -227,7 +227,7 @@ void train() {
 	int tmp = 0;
 	b_train.clear();
 	c_train.clear();
-	fprintf(logg, "------------------------train()------------------");
+	fprintf(logg, "------------------------train()------------------\n");
 	for (map<string,vector<int> >:: iterator it = bags_train.begin(); it!=bags_train.end(); it++)
 	{
 		for (int i=0; i<max(1,1); i++)
@@ -239,7 +239,7 @@ void train() {
 		   //kahar 
 		fprintf(logg, "first value %s\t", it->first.c_str());
 		
-			//fprintf(logg, "second value size %s\t\n", it->second.size());
+		fprintf(logg, "second value size %d\t\n", it->second.size());
 	}
 	//c_train have bags_train size.
 	cout<<c_train.size()<<endl;
