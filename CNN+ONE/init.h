@@ -45,6 +45,7 @@ int batch = 16;
 int npoch;
 int len;
 float rate = 1;
+//for log
 FILE *logg;
 
 float *wordVec;
@@ -60,6 +61,7 @@ vector<int *> testtrainLists, testPositionE1, testPositionE2;
 vector<int> testtrainLength;
 vector<int> testheadList, testtailList, testrelationList;
 vector<std::string> nam;
+
 
 map<string,vector<int> > bags_train, bags_test;
 
