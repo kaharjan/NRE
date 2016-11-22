@@ -52,7 +52,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 		int tip[dimensionC];
 		//cout<<"sentence="<<sentence<<endl;
 		//cout<<
-		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%s,tailList[i]=%s,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, wordList[e1], wordList[e2], nam[r1]);
+		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%s,tailList[i]=%s,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, wordList[e1].c_str(), wordList[e2].c_str(), nam[r1].c_str());
 		fprintf(logg, "res=%f,res1=%f ...)\n\n", res, res1);
 		for(int ki=0;ki<len;ki++)
 			fprintf(logg,"sentence=%s ",wordList[sentence[i]]);
