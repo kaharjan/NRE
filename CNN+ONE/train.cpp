@@ -57,6 +57,12 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 		fprintf(logg,"sentence:\n");
 		for(int ki=0;ki<len;ki++)
 			fprintf(logg,"%s ",wordList[sentence[ki]].c_str());
+		fprintf(logg,"trainPositionE1:\n");
+		for(int ki=0;ki<len;ki++)
+			fprintf(logg,"%d ",trainPositionE1[ki]);
+		fprintf(logg,"trainPositionE2:\n");
+		for(int ki=0;ki<len;ki++)
+			fprintf(logg,"%d ",trainPositionE2[ki]);
 
 		for (int i = 0; i < dimensionC; i++) {
 			int last = i * dimension * window;
@@ -120,7 +126,9 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 			sum+=f_r[j];
 		}
 		//r1 is corresponding to RelationID
+		//Pr=log((exp(Or))/sum(exp(ok))=log(exp(ie))-logsum(exp(ok))
 		double rt = log(f_r[r1]) - log(sum);
+		//backpropagation
 		if (flag)
 		{
 			float s1, g, s2;
@@ -134,11 +142,19 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 				float g1 = 0;
 				for (int r2 = 0; r2<relationTotal; r2++)
 				{
+					//derivative of J(theata) with respect to Or
+					//derivative of rt with respect to s
 					g = f_r[r2]/sum*alpha;//sigmod(margin*(marginNegative + s2)) * margin * alpha;
+					//r1 is corresponding to RelationID in training example
 					if (r2 == r1)
 						g -= alpha;
-					g1 += g * matrixRelationDao[r2 * dimensionC + i] * (1 -  r[i] * r[i]);
+					//derivative of J(theata) with respect to M
+
 					matrixRelation[r2 * dimensionC + i] -= g * r[i];
+
+					//derivative of J(theata) with respcet to  x
+					g1 += g * matrixRelationDao[r2 * dimensionC + i] * (1 -  r[i] * r[i]);//derivitive(ri=tanh(xi))
+
 					if (i==0)
 						matrixRelationPr[r2] -= g;
 				}
@@ -161,7 +177,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 					}
 				}
 				matrixB1[i] -= g1;
-			}
+			}//for(dimensionC first)
 
 			for (int i = 0; i < dimensionC; i++) {
 				int last = dimension * window * i;
@@ -179,7 +195,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 				}
 
 				matrixB1[i] += -Belt * matrixB1Dao[i] *alpha * 2;
-			}
+			}//for dimensionC second
 		}//if (flag)
 		//rt is J(theta)?
 		return rt;
