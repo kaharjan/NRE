@@ -46,6 +46,7 @@ void time_end()
 //calling example
 //double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 	    //positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
+//trainLength is corresponding to sentence lenght
 double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2, int len, int e1, int e2, int r1, float &res, float &res1, float *matrixW1Dao, float *matrixB1Dao, float *r, float *matrixRelationDao,
 	float *positionVecDaoE1, float *positionVecDaoE2, float*matrixW1PositionE1Dao, float*matrixW1PositionE2Dao,  float alpha) {
 		int tip[dimensionC];
@@ -208,7 +209,7 @@ void* trainMode(void *id ) {
 					{
 						int i = bags_train[b_train[j]][k];
 						// assume tmp corresponding to Oi
-
+                        //kahar add mutex
 						pthread_mutex_lock (&mutex1);
 						double tmp = train(0,trainLists[i], trainPositionE1[i], trainPositionE2[i], trainLength[i], headList[i], tailList[i], relationList[i], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
@@ -253,7 +254,7 @@ void train() {
 			fprintf(logg, "%d,", it->second[i]);
 		fprintf(logg, "\n");
 	}
-	//c_train have bags_train size.
+	//c_train have bags_train size, includes e1,e2,relation
 	cout<<c_train.size()<<endl;
 //sentence embeding dimensionC=230
 	float con = sqrt(6.0/(dimensionC+relationTotal));
@@ -331,8 +332,9 @@ void train() {
 //	return;
 	for (turn = 0; turn < trainTimes; turn ++) {
 		len = c_train.size();
+		//every time process batch*num_threads sentences, so npoch=len/bathc*num_threads
 		npoch  =  len / (batch * num_threads);
-		fprintf(logg,"\nnpoch=%d\n",npoch);
+		fprintf(logg,"\n\n=%d\n",npoch);
 		//alpha=0.02 rate=1 batch=16
 		alpha1 = alpha*rate/batch;
 
@@ -359,7 +361,7 @@ void train() {
 			for (int a = 0; a < num_threads; a++)
 				pthread_create(&pt[a], NULL, trainMode,  (void *)a);
 			for (int a = 0; a < num_threads; a++)
-			pthread_join(pt[a], NULL);
+			    pthread_join(pt[a], NULL);
 			free(pt);
 		//	int a = 0;
 		//	trainMode((void*)a);

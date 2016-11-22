@@ -114,6 +114,7 @@ void* testMode(void *id )
 				sum[j] = max(sum[j], score[j]);
 		}
 		pthread_mutex_lock (&mutex);
+		//definition of aa: vector<pair<string, pair<int,double> > >aa;
 		for (int j = 1; j < relationTotal; j++) 
 		{
 			int i = bags_test[b[ii]][0];
@@ -134,16 +135,24 @@ void test() {
 	ll_test.clear();
 	vector<int> b_sum;
 	b_sum.clear();
+	fprintf(logg,"\n\n------test()------------\n\n");
 	for (map<string,vector<int> >:: iterator it = bags_test.begin(); it!=bags_test.end(); it++)
 	{
 		
 		map<int,int> ok;
 		ok.clear();
+		fprintf(logg,"\n %s \n",it->first.c_str());
+		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
 			int i = it->second[k];
+			fprintf(logg,"%d,",i);
 			if (testrelationList[i]>0)
-				ok[testrelationList[i]]=1;		}
+			{
+				ok[testrelationList[i]]=1;	
+				fprintf(logg,"ok[%d]\t",testrelationList[i]);
+			}	
+		}//for
 		tot+=ok.size();
 		{
 			b.push_back(it->first);
