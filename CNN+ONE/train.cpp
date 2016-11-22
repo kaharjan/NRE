@@ -52,8 +52,10 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 		int tip[dimensionC];
 		//cout<<"sentence="<<sentence<<endl;
 		//cout<<
-		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%d,tailList[i]=%d,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, e1, e2, r1);
+		fprintf(logg, "train(flag=%d,sentence=%d,PositionE1=%d,PositionE2=%d,len=%d,headList[i]=%s,tailList[i]=%s,relationList[i]=%d,", flag, *sentence, *trainPositionE1, trainPositionE2, len, wordList[e1], wordList[e2], nam[r1]);
 		fprintf(logg, "res=%f,res1=%f ...)\n\n", res, res1);
+		for(int ki=0;ki<len;ki++)
+			fprintf(logg,"sentence=%s ",wordList[sentence[i]]);
 		for (int i = 0; i < dimensionC; i++) {
 			int last = i * dimension * window;
 			int lastt = i * dimensionWPE * window;
@@ -225,6 +227,7 @@ void* trainMode(void *id ) {
 						else
 							s_tmp.push_back(exp(tmp)+s_tmp[k-1]);
 					}
+					fprintf(logg,"\n--------begin train(1,......)-----\n");
 					pthread_mutex_lock (&mutex1);
 					score+= train(1,trainLists[tmp2], trainPositionE1[tmp2], trainPositionE2[tmp2], trainLength[tmp2], headList[tmp2], tailList[tmp2], relationList[tmp2], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
@@ -330,6 +333,7 @@ void train() {
 	test();
 	time_end();*/
 //	return;
+	//TrainTimes=15
 	for (turn = 0; turn < trainTimes; turn ++) {
 		len = c_train.size();
 		//every time process batch*num_threads sentences, so npoch=len/bathc*num_threads
@@ -338,9 +342,9 @@ void train() {
 		//alpha=0.02 rate=1 batch=16
 		alpha1 = alpha*rate/batch;
 
-		score = 0;
-		score_max = 0;
-		score_tmp = 0;
+		score = 0;// global var
+		score_max = 0; //global var
+		score_tmp = 0; //global var
 		double score1 = score;
 		time_begin();
 		fprintf(logg,"\n-------Thread Begin -----------\n ");
@@ -365,7 +369,8 @@ void train() {
 			free(pt);
 		//	int a = 0;
 		//	trainMode((void*)a);
-			if (k%(npoch/5)==0)
+			//if (k%(npoch/5)==0) //KAHAR CHANGE
+			if (k%(npoch/10)==0) //KAHAR CHANGE
 			{
 				cout<<"npoch:\t"<<k<<'/'<<npoch<<endl;
 				time_end();
@@ -379,7 +384,7 @@ void train() {
 		test();
 		//if ((turn+1)%1==0) 
 		//	rate=rate*reduce;
-	}
+	}//for (turn = 0;
 	test();
 	cout<<"Train End"<<endl;
 }

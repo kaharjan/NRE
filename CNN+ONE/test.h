@@ -52,6 +52,7 @@ vector<double> test(int *sentence, int *testPositionE1, int *testPositionE2, int
 		float s = 0;
 		for (int i = 0; i < dimensionC; i++)
 			s +=  0.5 * matrixRelation[j * dimensionC + i] * r[i];
+		//matrixRelationPrDao is corresponding to d
 		s += matrixRelationPr[j];
 		s = exp(s);
 		tmp+=s;
