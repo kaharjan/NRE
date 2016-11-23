@@ -124,12 +124,18 @@ void* testMode(void *id )
 			for (int j = 0; j < relationTotal; j++) 
 				sum[j] = max(sum[j], score[j]);
 		}
+		fprintf(logg,"\n------value of ok--------size=%d\n",ok.size());
+		for(int ik=0;ik<ok.size();ik++)
+			fprintf(logg,"%d:%d\n",ik,ok[ik]);
+
+
 		pthread_mutex_lock (&mutex);
 		//definition of aa: vector<pair<string, pair<int,double> > >aa;
 		for (int j = 1; j < relationTotal; j++) 
 		{
 			int i = bags_test[b[ii]][0];
 			aa.push_back(make_pair(wordList[testheadList[i]]+' '+wordList[testtailList[i]]+' '+nam[j],make_pair(ok.count(j),sum[j])));
+
 		}
 		pthread_mutex_unlock(&mutex);
 	}
@@ -189,7 +195,7 @@ void test() {
 		pthread_join(pt[a], NULL);
 	//int a=0;
 //	testMode((void*)a);
-	 fprintf(logg, "\n----aa's content before  sort----size%dd\n", aa.size());
+	 fprintf(logg, "\n----aa's content before  sort----size=%d\n", aa.size());
 	 
     for(int i=0;i<aa.size();i++)
 	{
