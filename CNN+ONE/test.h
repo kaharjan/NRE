@@ -125,8 +125,12 @@ void* testMode(void *id )
 				sum[j] = max(sum[j], score[j]);
 		}
 		fprintf(logg,"\n------value of ok--------size=%d\n",ok.size());
-		for(int ik=0;ik<ok.size();ik++)
-			fprintf(logg,"%d:%d\n",ik,ok[ik]);
+		//for( ik=0;ik<ok.size();ik++)
+		//	fprintf(logg,"%d:%d\n",ik,ok[ik]);
+		for(map<int,int >:: iterator it = ok.begin(); it!=ok.end(); it++)
+		{
+			fprintf(logg,"%d %d\n",it.first,it.second);
+		}
 
 
 		pthread_mutex_lock (&mutex);
