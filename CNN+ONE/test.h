@@ -142,7 +142,7 @@ void test() {
 		
 		map<int,int> ok;
 		ok.clear();
-		fprintf(logg,"\n %s \n",bags_test[it->first]);
+		fprintf(logg,"\n %s \t",bags_test[it->first].c_str());
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
