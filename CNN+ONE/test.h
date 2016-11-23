@@ -221,6 +221,7 @@ void test() {
 		fclose(f);
 		if (!output_model)
 			return ;
+		cout<<"print aa"<<endl;
 	    printAA(aa);
 		FILE *fout = fopen(("./out/matrixW1+B1.txt"+version).c_str(), "w");
 		fprintf(fout,"%d\t%d\t%d\t%d\n", dimensionC, dimension, window, dimensionWPE);
