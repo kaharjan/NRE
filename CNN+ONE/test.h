@@ -142,7 +142,8 @@ void test() {
 		
 		map<int,int> ok;
 		ok.clear();
-		fprintf(logg,"\n %s \t",bags_test[it->first].c_str());
+		int instenceID = bags_test[it->first][0];
+		fprintf(logg,"\n %s %s %s\n",wordList[testheadList[instenceID]].c_str(),wordList[testtailList[instenceID]].c_str(),num[testrelationList[instenceID]].c_str());
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
@@ -276,7 +277,7 @@ void printResults(vector<pair<string, pair<int,double> > >aa)
 	for(int i=0;i<aa.size();i++)
 	{
 		string entityRel=aa[i].first;
-		string 
+		
 
 	}
 }
