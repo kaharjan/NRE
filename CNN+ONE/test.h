@@ -99,7 +99,7 @@ void* testMode(void *id )
 		sum_neg = sum;
 		map<int,int> ok;
 		ok.clear();
-		for (int k=0; k<bags_test[b[ii]].size(); k++)
+		for (int k=0; k<bags_test[b[ii]].size(); k++)//this for is no use???
 		{
 			int i = bags_test[b[ii]][k];
 			if (testrelationList[i]>0&&ttt==-1)
@@ -142,7 +142,7 @@ void test() {
 		
 		map<int,int> ok;
 		ok.clear();
-		fprintf(logg,"\n %s \n",it->first.c_str());
+		fprintf(logg,"\n %s \n",bags_test[it->first];
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
@@ -180,6 +180,16 @@ void test() {
 //	testMode((void*)a);
 	cout<<"begin sort"<<' '<<aa.size()<<endl;
 	sort(aa.begin(),aa.end(),cmp);
+	//kahar begin
+	for(int ik=0;ik<aa.size();ik++)
+	{
+		aa[ik].
+
+	}
+	//kahar end
+
+
+
 	double correct=0;
 	float correct1 = 0;
 	for (int i=0; i<min(2000,int(aa.size())); i++)
@@ -203,7 +213,8 @@ void test() {
 		{
 			if (aa[i].second.first!=0)
 				correct++;	
-			fprintf(f,"%lf\t%lf\t%lf\t%s\n",correct/(i+1), correct/tot,aa[i].second.second, aa[i].first.c_str());
+			//fprintf(f,"%lf\t%lf\t%lf\t%s\n",correct/(i+1), correct/tot,aa[i].second.second, aa[i].first.c_str()); //kahar del
+			fprintf(f,"%d\t%lf\t%lf\t%lf\t%s\n",aa[i].second.first,correct/(i+1),correct/tot,aa[i].second.second, aa[i].first.c_str());//kahar change
 		}
 		fclose(f);
 		if (!output_model)
@@ -256,6 +267,17 @@ void test() {
 			fprintf(fout,"\n");
 		}
 		fclose(fout);
+	}
+}
+
+//vector<pair<string, pair<int,double> > >aa;
+void printResults(vector<pair<string, pair<int,double> > >aa)
+{
+	for(int i=0;i<aa.size();i++)
+	{
+		string entityRel=aa[i].first;
+		string 
+
 	}
 }
 
