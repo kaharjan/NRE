@@ -13,7 +13,7 @@ void printAA(vector<pair<string, pair<int,double> > > *aa)
 	fprintf(logg,"\n-----aa's content-----\n");
 	for(int i=0;i<aa->size();i++)
 	{
-		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
+		//fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
 	}
 }
 
