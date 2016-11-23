@@ -156,7 +156,7 @@ void test() {
 	ll_test.clear();
 	vector<int> b_sum;
 	b_sum.clear();
-	fprintf(logg,"\n\n------test()------------\n\n");
+	fprintf(logg,"\n\n------test() ok[]------------\n\n");
 	for (map<string,vector<int> >:: iterator it = bags_test.begin(); it!=bags_test.end(); it++)
 	{
 		
