@@ -143,7 +143,7 @@ void test() {
 		map<int,int> ok;
 		ok.clear();
 		int instenceID = bags_test[it->first][0];
-		fprintf(logg,"\n %s %s %s\n",wordList[testheadList[instenceID]].c_str(),wordList[testtailList[instenceID]].c_str(),nam[testrelationList[instenceID]].c_str());
+		fprintf(logg,"\n %s %s %s\n",wordList[testheadList[instenceID]].c_str(),wordList[testtailList[instenceID]].c_str(),nm[testrelationList[instenceID]].c_str());
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
@@ -195,6 +195,7 @@ void test() {
 	float correct1 = 0;
 	for (int i=0; i<min(2000,int(aa.size())); i++)
 	{
+		//vector<pair<string, pair<int,double> > >aa;
 		if (aa[i].second.first!=0)
 			correct1++;	
 		float precision = correct1/(i+1);
@@ -220,6 +221,7 @@ void test() {
 		fclose(f);
 		if (!output_model)
 			return ;
+	    printAA(aa);
 		FILE *fout = fopen(("./out/matrixW1+B1.txt"+version).c_str(), "w");
 		fprintf(fout,"%d\t%d\t%d\t%d\n", dimensionC, dimension, window, dimensionWPE);
 		for (int i = 0; i < dimensionC; i++) {
@@ -272,13 +274,13 @@ void test() {
 }
 
 //vector<pair<string, pair<int,double> > >aa;
-void printResults(vector<pair<string, pair<int,double> > >aa)
+//I  have to write this code....
+void printAA(vector<pair<string, pair<int,double> > > *aa)
 {
+	fprintf(logg,"\n-----aa's content-----\n");
 	for(int i=0;i<aa.size();i++)
 	{
-		string entityRel=aa[i].first;
-		
-
+		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
 	}
 }
 
