@@ -217,6 +217,14 @@ void test() {
 			max_pre = precision;
 		}
 	}
+
+    //kahar begin
+    for(int i=0;i<aa.size();i++)
+	{
+		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
+	}
+	//kahar end
+
 	//assert(version!="");
 	//if (output_flag)
 	{
@@ -231,8 +239,8 @@ void test() {
 		fclose(f);
 		if (!output_model)
 			return ;
-		cout<<"print aa"<<endl;
-	    printAA(aa);
+		//cout<<"print aa"<<endl;
+	    //printAA(aa);
 		FILE *fout = fopen(("./out/matrixW1+B1.txt"+version).c_str(), "w");
 		fprintf(fout,"%d\t%d\t%d\t%d\n", dimensionC, dimension, window, dimensionWPE);
 		for (int i = 0; i < dimensionC; i++) {
