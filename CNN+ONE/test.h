@@ -143,7 +143,7 @@ void test() {
 		map<int,int> ok;
 		ok.clear();
 		int instenceID = bags_test[it->first][0];
-		fprintf(logg,"\n %s %s %s\n",wordList[testheadList[instenceID]].c_str(),wordList[testtailList[instenceID]].c_str(),num[testrelationList[instenceID]].c_str());
+		fprintf(logg,"\n %s %s %s\n",wordList[testheadList[instenceID]].c_str(),wordList[testtailList[instenceID]].c_str(),nam[testrelationList[instenceID]].c_str());
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
