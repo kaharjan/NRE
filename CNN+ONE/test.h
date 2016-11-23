@@ -189,6 +189,12 @@ void test() {
 		pthread_join(pt[a], NULL);
 	//int a=0;
 //	testMode((void*)a);
+	 fprintf(logg, "\n----aa's content before  sort----size%dd\n", aa.size());
+	 fprintf()
+    for(int i=0;i<aa.size();i++)
+	{
+		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
+	}
 	cout<<"begin sort"<<' '<<aa.size()<<endl;
 	sort(aa.begin(),aa.end(),cmp);
 	//kahar begin
@@ -219,6 +225,7 @@ void test() {
 	}
 
     //kahar begin
+    fprintf(logg, "\n----aa's content after sort----size=%d\n",aa.size() );
     for(int i=0;i<aa.size();i++)
 	{
 		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
