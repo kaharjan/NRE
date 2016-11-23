@@ -190,7 +190,7 @@ void test() {
 	//int a=0;
 //	testMode((void*)a);
 	 fprintf(logg, "\n----aa's content before  sort----size%dd\n", aa.size());
-	 fprintf()
+	 
     for(int i=0;i<aa.size();i++)
 	{
 		fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
