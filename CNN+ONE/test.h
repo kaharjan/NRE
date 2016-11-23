@@ -142,7 +142,7 @@ void test() {
 		
 		map<int,int> ok;
 		ok.clear();
-		fprintf(logg,"\n %s \n",bags_test[it->first];
+		fprintf(logg,"\n %s \n",bags_test[it->first]);
 		fprintf(logg,"size=%d\t",it->second.size());
 		for (int k=0; k<it->second.size(); k++)
 		{
@@ -181,11 +181,11 @@ void test() {
 	cout<<"begin sort"<<' '<<aa.size()<<endl;
 	sort(aa.begin(),aa.end(),cmp);
 	//kahar begin
-	for(int ik=0;ik<aa.size();ik++)
-	{
-		aa[ik].
+	//for(int ik=0;ik<aa.size();ik++)
+	//{
+	//	aa[ik].
 
-	}
+	//}
 	//kahar end
 
 
