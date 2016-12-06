@@ -181,10 +181,27 @@ void init() {
 			con[i] = tmpp[i];
 			conl[i] = lefnum - i;
 			conr[i] = rignum - i;
-			if (conl[i] >= limit) conl[i] = limit;
-			if (conr[i] >= limit) conr[i] = limit;
-			if (conl[i] <= -limit) conl[i] = -limit;
+			if (conl[i] >= limit) 
+			{
+				conl[i] = limit;
+				fprintf(logg, "\ncconl[i] >= limit conl[%d]= %d\n", i,conl[i]);
+
+			}
+			if (conr[i] >= limit)
+			{ 
+				conr[i] = limit;
+				fprintf(logg, "\nconr[i] >= limit conl[%d]= %d\n", i,conr[i]);
+			}
+			if (conl[i] <= -limit) 
+				{
+					conl[i] = -limit;
+					fprintf(logg, "\n conl[i] <= -limit conl[%d]= %d\n", i,conl[i]);
+
+				}
 			if (conr[i] <= -limit) conr[i] = -limit;
+			{
+				fprintf(logg, "\nconr[i] <= -limit conl[%d]= %d\n", i,conr[i]);
+			}
 			if (conl[i] > PositionMaxE1) PositionMaxE1 = conl[i];
 			if (conr[i] > PositionMaxE2) PositionMaxE2 = conr[i];
 			if (conl[i] < PositionMinE1) PositionMinE1 = conl[i];

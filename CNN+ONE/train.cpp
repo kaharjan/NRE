@@ -57,10 +57,10 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 		fprintf(logg,"sentence:\n");
 		for(int ki=0;ki<len;ki++)
 			fprintf(logg,"%s ",wordList[sentence[ki]].c_str());
-		fprintf(logg,"trainPositionE1:\n");
+		fprintf(logg,"\ntrainPositionE1:\n");
 		for(int ki=0;ki<len;ki++)
 			fprintf(logg,"%d ",trainPositionE1[ki]);
-		fprintf(logg,"trainPositionE2:\n");
+		fprintf(logg,"\ntrainPositionE2:\n");
 		for(int ki=0;ki<len;ki++)
 			fprintf(logg,"%d ",trainPositionE2[ki]);
 
@@ -102,7 +102,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 			//MatrixB1Dao corresponding to b bias vector
 			r[i] = mx + matrixB1Dao[i];
 		}
-//r[i] is output of cnn befor tanH
+//r[i] is output of cnn before tanH
 		for (int i = 0; i < dimensionC; i++) {
 			r[i] = CalcTanh(r[i]);
 		}
@@ -245,7 +245,7 @@ void* trainMode(void *id ) {
 						else
 							s_tmp.push_back(exp(tmp)+s_tmp[k-1]);
 					}
-					fprintf(logg,"\n--------begin train(1,......)-----\n");
+					fprintf(logg,"\n--------begin backpropagation(1,......)-----\n");
 					pthread_mutex_lock (&mutex1);
 					score+= train(1,trainLists[tmp2], trainPositionE1[tmp2], trainPositionE2[tmp2], trainLength[tmp2], headList[tmp2], tailList[tmp2], relationList[tmp2], res, res1, matrixW1Dao, matrixB1Dao, r, matrixRelationDao, 
 						positionVecDaoE1, positionVecDaoE2, matrixW1PositionE1Dao, matrixW1PositionE2Dao, alpha1);
