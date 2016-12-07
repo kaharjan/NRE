@@ -391,7 +391,7 @@ void train() {
 			//if (k%(npoch/5)==0) //KAHAR CHANGE
 			if (k%(npoch/10)==0) //KAHAR CHANGE
 			{
-				fprintf(logg,"npoch:\t %d/",npoch);
+				fprintf(logg,"\nnpoch:\t %d/%d",k,npoch);
 				cout<<"npoch:\t"<<k<<'/'<<npoch<<endl;
 				time_end();
 				time_begin();
