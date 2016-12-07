@@ -101,7 +101,7 @@ double train(int flag, int *sentence, int *trainPositionE1, int *trainPositionE2
 			//mx is corrponding to xi=max(pi)??
 			//MatrixB1Dao corresponding to b bias vector
 			r[i] = mx + matrixB1Dao[i];
-		}
+		}//for (int i = 0; i < dimensionC; i++) {
 //r[i] is output of cnn before tanH
 		for (int i = 0; i < dimensionC; i++) {
 			r[i] = CalcTanh(r[i]);
@@ -276,6 +276,7 @@ void train() {
 		fprintf(logg, "\n");
 	}
 	//c_train have bags_train size, includes e1,e2,relation
+	fprint(logg,"\nc_train.size()= %d\n",c_train.size())
 	cout<<c_train.size()<<endl;
 //sentence embeding dimensionC=230
 	float con = sqrt(6.0/(dimensionC+relationTotal));
@@ -390,20 +391,25 @@ void train() {
 			//if (k%(npoch/5)==0) //KAHAR CHANGE
 			if (k%(npoch/10)==0) //KAHAR CHANGE
 			{
+				fprint(logg,"npoch:\t %d/",npoch);
 				cout<<"npoch:\t"<<k<<'/'<<npoch<<endl;
 				time_end();
 				time_begin();
+				fprint(logg,"score:\t %f  %f",score-score1,score_tmp);
 				cout<<"score:\t"<<score-score1<<' '<<score_tmp<<endl;
 				score1 = score;
 			}
 		}
+		fprint(logg,"Total Score:\t%f\n",score);
 		printf("Total Score:\t%f\n",score);
+		fprint(logg,"----test-------\n");
 		printf("test\n");
 		test();
 		//if ((turn+1)%1==0) 
 		//	rate=rate*reduce;
 	}//for (turn = 0;
 	test();
+	fprint(logg,"----Train End-------\n");
 	cout<<"Train End"<<endl;
 }
 
@@ -411,8 +417,11 @@ int main(int argc, char ** argv) {
 	output_model  = 1;
 	logg = fopen("log.txt","w");
 	cout<<"Init Begin."<<endl;
+	fprint(logg,"\n----Init Begin------\n");
 	init();
+	fprint(logg,"\n bags_train.size()=%d bags_test.size()=%d \n",bags_train.size(),bags_test.size());
 	cout<<bags_train.size()<<' '<<bags_test.size()<<endl;
+	fprint(logg,"\n----Init End.------\n");
 	cout<<"Init End."<<endl;
 	train();
 	fclose(logg);
