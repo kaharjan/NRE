@@ -276,7 +276,7 @@ void train() {
 		fprintf(logg, "\n");
 	}
 	//c_train have bags_train size, includes e1,e2,relation
-	fprint(logg,"\nc_train.size()= %d\n",c_train.size())
+	fprint(logg,"\nc_train.size()= %d\n",c_train.size());
 	cout<<c_train.size()<<endl;
 //sentence embeding dimensionC=230
 	float con = sqrt(6.0/(dimensionC+relationTotal));
