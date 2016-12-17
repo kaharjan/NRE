@@ -208,9 +208,10 @@ float train_bags(string bags_name)
 			double tmp_sum = 0; //for rList[k][i]*weight[k]
 			for (int k=0; k<bags_size; k++)
 			{
-				grad[k][i]+=g1*weight[k];
+				grad[k][i]+=g1*weight[k];// derivitive of s with respect to xi? parcialder(s)/parcial(x)=weitht
 				for (int j = 0; j < dimensionC; j++)
 				{
+					//derivitive of e with respect to x= Ar, A is att_Daow, 
 					grad[k][j]+=g1*rList[k][i]*weight[k]*matrixRelationDao[r1 * dimensionC + i]*att_W_Dao[r1][j][i];
 					matrixRelation[r1 * dimensionC + i] += g1*rList[k][i]*weight[k]*rList[k][j]*att_W_Dao[r1][j][i];
 					if (i==j)
@@ -222,6 +223,7 @@ float train_bags(string bags_name)
 			{
 				for (int j = 0; j < dimensionC; j++)
 				{
+					//derivitave of 
 					grad[k1][j]-=g1*tmp_sum*weight[k1]*matrixRelationDao[r1 * dimensionC + i]*att_W_Dao[r1][j][i];
 					matrixRelation[r1 * dimensionC + i] -= g1*tmp_sum*weight[k1]*rList[k1][j]*att_W_Dao[r1][j][i];
 					if (i==j)
