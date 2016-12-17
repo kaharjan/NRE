@@ -192,6 +192,7 @@ void test() {
 			now+=1;
 		}
 	cout<<"tot:\t"<<tot<<endl;
+	fprintf(logg, "\ntot = %d\n", tot);
 	pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
 	for (int a = 0; a < num_threads; a++)
 		pthread_create(&pt[a], NULL, testMode,  (void *)a);
@@ -233,7 +234,7 @@ void test() {
 		if (i%100==0)
 		{
 			cout<<"precision:\t"<<correct1/(i+1)<<'\t'<<"recall:\t"<<correct1/tot<<endl;
-			fprintf(logg, "\n precision =%f \t recall =%f ",correct1/(i+1), correct1/tot);
+			fprintf(logg, "\n precision =%f \t recall =%f \n",correct1/(i+1), correct1/tot);
 		}
 		if (recall>0.1&&precision>max_pre)
 		{
