@@ -223,7 +223,11 @@ void test() {
 	{
 		//vector<pair<string, pair<int,double> > >aa;
 		if (aa[i].second.first!=0)
+		{
 			correct1++;	
+			fprintf(logg,"%s %d %f\n",aa[i].first.c_str(),aa[i].second.first,aa[i].second.second);
+
+		}
 		float precision = correct1/(i+1);
 		float recall = correct1/tot;
 		if (i%100==0)
